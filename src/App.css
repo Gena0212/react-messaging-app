@@ -45,10 +45,7 @@
   display: flex;
 }
 
-.loginPage {
+.login {
   display: flex;
-}
-
-.login-image{
-  
+  flex-wrap: wrap;
 }
