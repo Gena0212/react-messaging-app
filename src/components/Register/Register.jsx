@@ -1,8 +1,11 @@
 import React, {useState} from "react";
 import {createUserWithEmailAndPassword} from 'firebase/auth';
-import {auth} from '/Users/user/Desktop/React_vite/react-vite-app/src/firebase';
+
 
 import './Register.css';
+
+import { auth, db } from "../../firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 
 export default function Register() {
@@ -24,29 +27,126 @@ export default function Register() {
         }))
     }
 
-    async function handleRegister() {
+    async function handleRegister(e) {
+        e.preventDefault()
+        const formData = new FormData(e.target);
+
+        const { username, email, password, passwordConfirm } = Object.fromEntries(formData);
         
-        
-        if (registerData.password == registerData.passwordConfirm) {
-            if (registerData.email === '' || registerData.password === ''){
+        if (password == passwordConfirm) {
+            if (email === '' || password === ''){
                 console.log("Email and password are mandatory")
                 return
             } else {
                 try {
-                    const user = await createUserWithEmailAndPassword(auth, registerData.email, registerData.password)
-                    console.log(user)
+                    const registeredUser = await createUserWithEmailAndPassword(auth, email, password)
+                    console.log(registeredUser)
+
+                    await setDoc(doc(db,"users", registeredUser.user.uid), {
+                        username, 
+                        email, 
+                        id: registeredUser.user.uid, 
+                        blocked: []
+                    })
+
+                    await setDoc(doc(db,"userchats", registeredUser.user.uid), {
+                        chats: []
+                    })
+
                 } catch (error) {
                     console.log(error.message)
                 }
             }
-
-            
 
         } else {
             console.log("Passwords do not match")
             return
         }
     }
+    
+    // const handleRegister = async(e) => {
+    //     e.preventDefault();
+
+    //     const formData = new FormData(e.target);
+
+    //     const { username, email, password, passwordConfirm } = Object.fromEntries(formData);
+
+    //     try {
+    //         const res = await createUserWithEmailAndPassword(auth, email, password)
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
+    // async function handleRegister(event) {
+    //     event.preventDefault();
+    //     const formData = new FormData(event.target);
+
+    //     const {username, email, password, passwordConfirm} = Object.fromEntries(formData);
+
+        // try {
+        //     const createUserResponse = await createUserWithEmailAndPassword(auth, email, password)
+            
+        //     const userData = {
+        //         username,
+        //         email,
+        //         id: createUserResponse.user.uid,
+        //         blocked: []
+        //     }
+        //     await setDoc(doc(db, "users", createUserResponse.user.uid), userData);
+            
+        //     await setDoc(doc(db, "chats", createUserResponse.user.uid), {chat: []});
+
+        //     console.log(user)
+        // } catch (error) {
+        //     console.log(error.message)
+        // }
+
+        // if (password == passwordConfirm) {
+        //     if (email === '' || password === ''){
+        //         console.log("Email and password are mandatory")
+        //         return
+        //     } else {
+                
+        //         const currentuser = await createUserWithEmailAndPassword(auth, registerData.email, registerData.password)
+                    
+        //         const userData = {
+        //             username: registerData.username,
+        //             email: registerData.email,
+        //             id: currentuser.user.uid,
+        //             blocked: []
+        //         }
+        //         await setDoc(doc(db, "users", currentuser.user.uid), userData);
+
+        //         const chats = {chat: []}
+
+        //         await setDoc(doc(db, "chats", currentuser.user.uid), chats);
+
+        //         console.log(user)
+                
+                // await auth.createUserWithEmailAndPassword(auth, registerData.email, registerData.password).then(async(userRec)=>{
+                //     const user = userRec.user;
+                //     await await setDoc(doc(db, "users", user.uid),{
+                //         username: registerData.username,
+                //         email: registerData.email,
+                //         id: currentuser.user.uid,
+                //         blocked: []
+                //     }).catch((error)=>{
+                //         console.log(error);
+                //     });
+                // }).catch((error)=>{
+                //     console.log(error);
+                // });
+
+
+            // }
+
+            
+
+    //     } else {
+    //         console.log("Passwords do not match")
+    //         return
+    //     }
+    // }
 
 
     return (
@@ -81,7 +181,7 @@ export default function Register() {
                     name="passwordConfirm"
                     value = {registerData.passwordConfirm}
                     />
-                    <button onClick={handleRegister}>Sign Up</button>
+                    <button>Sign Up</button>
                 </form>
         </div>
         

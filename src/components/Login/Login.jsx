@@ -26,8 +26,8 @@ export default function Login() {
 
     async function handleLogin() {
         try {
-            const user = await signInWithEmailAndPassword(auth, loginData.email, loginData.password)
-            console.log(user)
+            const currentuser = await signInWithEmailAndPassword(auth, loginData.email, loginData.password)
+            console.log(currentuser)
         } catch (error) {
             console.log(error.message)
         }
