@@ -55,25 +55,6 @@ export default function Register() {
             } else {
 
                 dispatch(signup(user))
-
-                // try {
-                //     const registeredUser = await createUserWithEmailAndPassword(auth, email, password)
-                //     console.log(registeredUser)
-
-                //     await setDoc(doc(db,"users", registeredUser.user.uid), {
-                //         username, 
-                //         email, 
-                //         id: registeredUser.user.uid, 
-                //         blocked: []
-                //     })
-
-                //     await setDoc(doc(db,"userchats", registeredUser.user.uid), {
-                //         chats: []
-                //     })
-
-                // } catch (error) {
-                //     console.log(error.message)
-                // }
             }
 
         } else {
