@@ -1,6 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import './Login.css';
 import {signInWithEmailAndPassword} from 'firebase/auth';
+import { auth } from "../../firebase";
 
 
 
@@ -24,19 +25,24 @@ export default function Login() {
         })
     }
 
-    async function handleLogin() {
+    async function handleLogin(event) {
+        event.preventDefault();
+
+        const formData = new FormData(event.target)
+        const { email, password } = Object.fromEntries(formData);
+
         try {
-            const currentuser = await signInWithEmailAndPassword(auth, loginData.email, loginData.password)
-            console.log(currentuser)
+            await signInWithEmailAndPassword(auth, email, password)
         } catch (error) {
-            console.log(error.message)
+            console.log(error)
         }
+    
     }
 
     return (
         <div className="login">
             <h2>Log In</h2>
-            <form>
+            <form onSubmit={handleLogin}>
                 <input
                 type="email"
                 placeholder="Email"
@@ -51,7 +57,7 @@ export default function Login() {
                 name="password"
                 value = {loginData.password}
                 />
-                <button onClick={handleLogin} >Sign In</button>
+                <button >Sign In</button>
             </form>
         </div>
     )
