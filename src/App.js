@@ -1,10 +1,9 @@
-import React from "react"
 import './App.css'
-import Chat from "./components/Chat/Chat"
+import Chat from "./components/Chat/Chat.js"
 import { Route, HashRouter as Router } from "react-router-dom"
-import Register from "./components/Register/Register"
-import Login from "./components/Login/Login"
-import PrivateRoute from "./components/PrivateRoute"
+import Register from "./components/Register/Register.js"
+import Login from "./components/Login/Login.js"
+import PrivateRoute from "./components/PrivateRoute.js"
 
 
 

@@ -5,7 +5,7 @@ import React from "react";
 import './Register.css';
 
 
-import { signup } from '../../Actions/Actions';
+import { signup } from '../../Actions/Actions.js';
 import { useDispatch } from "react-redux";
 
 

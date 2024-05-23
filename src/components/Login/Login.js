@@ -1,7 +1,8 @@
 import React from "react";
 import './Login.css';
-import {signInWithEmailAndPassword} from 'firebase/auth';
-import { auth } from "../../firebase";
+import { useDispatch } from "react-redux";
+import { signin } from "../../Actions/auth.actions.js";
+
 
 
 
@@ -14,6 +15,9 @@ export default function Login() {
         }
     )
 
+    const dispatch = useDispatch();
+    //const auth = useSelector (state => state.auth);
+
 
     function handleChange(event){
         const {name, value} = event.target
@@ -25,19 +29,41 @@ export default function Login() {
         })
     }
 
-    async function handleLogin(event) {
+    function handleLogin(event) {
         event.preventDefault();
 
-        const formData = new FormData(event.target)
-        const { email, password } = Object.fromEntries(formData);
+        const email = loginData.email
+        const password = loginData.password
 
-        try {
-            await signInWithEmailAndPassword(auth, email, password)
-        } catch (error) {
-            console.log(error)
+        if (email == ""){
+            alert("Email is required");
+            return;
         }
-    
+        if (password == ""){
+            alert("Password is required");
+            return;
+        }
+
+        dispatch(signin({email , password}));
+        console.log("User is signed in?")
+
     }
+
+    // async function handleLogin(event) {
+    //     event.preventDefault();
+
+    //     const formData = new FormData(event.target)
+    //     const { email, password } = Object.fromEntries(formData);
+
+    //     try {
+    //         await signInWithEmailAndPassword(auth, email, password)
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    
+    // }
+
+    
 
     return (
         <div className="login">
