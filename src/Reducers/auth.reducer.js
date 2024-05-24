@@ -1,4 +1,5 @@
-import { authConstants } from "../Actions/Constants";
+
+import { authConstants } from "../Actions/Constants.js";
 
 const initState = {
     name: '', 
@@ -9,12 +10,15 @@ const initState = {
 }
 
 export default (state = initState, action) => {
+
+    console.log(action);
+
     switch(action.type){
         case authConstants.USER_LOGIN_REQUEST:
             state = {
                 ...state,
                 authenticating: true
-            }
+            } 
             break;
         case authConstants.USER_LOGIN_SUCCESS:
             state = {
@@ -32,6 +36,21 @@ export default (state = initState, action) => {
                 error: action.payload.error
             }
             break;
+        case authConstants.USER_LOGOUT_REQUEST:
+            break;
+        
+        case authConstants.USER_LOGOUT_SUCCESS:
+            state = {
+                ...initState
+            }
+            break;
+        case authConstants.USER_LOGOUT_FAILURE:
+            state = {
+                ...state,
+                error:action.payload.error
+            }
+            break;
     }
     return state;
 }
+
