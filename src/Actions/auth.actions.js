@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth"
 import { auth, db } from "../firebase.js"
 import { addDoc, collection } from "firebase/firestore"
 import { authConstants } from "./Constants.js"
@@ -87,4 +87,42 @@ export const signin = (user) => {
         })
     }
 
+}
+
+export const isLoggedInUser = () => {
+    return async dispatch => {
+        const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')): null;
+
+        if (user){
+            dispatch({
+                type: authConstants.USER_LOGIN_SUCCESS, 
+                payload: {user}
+            })
+        } else {
+            dispatch({
+                type: authConstants.USER_LOGIN_FAILURE,
+                payload: { error: 'Login again please'}
+            })
+        }
+    }
+}
+
+export const logout = () => {
+    return async dispatch => {
+        dispatch({ type: authConstants.USER_LOGOUT_REQUEST });
+        signOut(auth).then(() => {
+            localStorage.clear();
+            dispatch({
+                type: authConstants.USER_LOGOUT_SUCCESS
+            });
+        })
+        .catch((error) => {
+            console.log(error)
+            dispatch({ 
+                type: authConstants.USER_LOGOUT_FAILURE, 
+                payload: { error }
+            })
+        })
+
+    }
 }

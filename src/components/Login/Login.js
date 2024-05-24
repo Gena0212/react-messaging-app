@@ -1,7 +1,10 @@
 import React from "react";
 import './Login.css';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signin } from "../../Actions/auth.actions.js";
+//import { auth } from "../../firebase.js";
+import { Redirect } from 'react-router-dom';
+
 
 
 
@@ -16,8 +19,14 @@ export default function Login() {
     )
 
     const dispatch = useDispatch();
-    //const auth = useSelector (state => state.auth);
 
+    const auth = useSelector(state => state.auth);
+
+    // useEffect(()=>{
+    //     if (!auth.authenticated){
+    //         dispatch(isLoggedInUser())
+    //     }
+    // }, []);
 
     function handleChange(event){
         const {name, value} = event.target
@@ -48,20 +57,12 @@ export default function Login() {
         console.log("User is signed in?")
 
     }
+    // console.log('Auth is', auth)
+    // console.log(auth.authenticated)
 
-    // async function handleLogin(event) {
-    //     event.preventDefault();
-
-    //     const formData = new FormData(event.target)
-    //     const { email, password } = Object.fromEntries(formData);
-
-    //     try {
-    //         await signInWithEmailAndPassword(auth, email, password)
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    
-    // }
+    if ( auth.authenticated ) {
+        return <Redirect to={'/'} />
+    }
 
     
 
