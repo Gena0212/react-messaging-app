@@ -1,3 +1,10 @@
 .current-chat{
-    display: 2;
+    display: flex;
+    flex-direction: column;
+    /* display: 2; */
+}
+
+.message-area {
+    background-color:aliceblue;
+    height: 80vh;
 }

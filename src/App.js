@@ -22,14 +22,11 @@ export default function App() {
 }, []);
 
   return (
-    <div className="App">
         <Router>
           <PrivateRoute path = "/" exact component = {Chat}/>
           <Route path = "/login" component = {Login}/>
           <Route path = "/register" component = {Register}/>
         </Router>
-    </div>
- 
   )
 }
 

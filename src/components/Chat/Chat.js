@@ -3,26 +3,75 @@ import { Link } from 'react-router-dom'
 import { logout } from "../../Actions/auth.actions.js";
 import "./Chat.css"
 import CurrentChat from "./CurrentChat/CurrentChat.js";
-import OtherUsers from "./OtherUsers/OtherUsers.js";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect } from "react"
+import UserCard from './UserCard/UserCard.js';
+import { getRealtimeUsers } from '../../Actions/user.actions.js';
+
 
 export default function Chat() {
-
     const dispatch = useDispatch();
+    const auth = useSelector(state => state.auth);
+    const user = useSelector(state => state.user);
+
+    const [chatStarted, setChatStarted] = useState(false)
+    const [messageReceiver, setMessageReceiver] = useState('')
+
+    console.log('auth in chat.js', auth)
 
     // const logout = () => {
     //     dispatch(logout())
     // }
+    let unsubscribe;
+
+    useEffect(() => {
+        unsubscribe = dispatch(getRealtimeUsers(auth.uid))
+        .then(unsubscribe => {
+            return unsubscribe; 
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }, [])
+
+    useEffect(() => {
+        return () => {
+             unsubscribe.then(f => f()).catch(error => console.log(error));
+        }
+    }, [])
+
+    function startMessaging(user) {
+        setChatStarted(true)
+        console.log('message started', user)
+        setMessageReceiver(user.name)
+
+    }
 
     return (
         <div className="chat">
             <header>
                 <Link to = {'#'} onClick = {() => {
-                    dispatch(logout())
+                    dispatch(logout(auth))
                 }}>Logout</Link>
             </header>
-            <OtherUsers/>
-            <CurrentChat/>
+            <div className='chat-area'>
+                <div className="other-users">
+                    {
+                        user.users.length > 0 ?
+                        user.users.map(item => {
+                            return (
+                                <UserCard 
+                                onClick = {() => startMessaging(item)}
+                                key = {item.uid} 
+                                {...item}/>
+                            )
+                        }) : null
+                    }
+                </div>
+                <div className='messages'>
+                    <CurrentChat {...{chatStarted, messageReceiver}}/>
+                </div>
+            </div>
         </div>
 
     )

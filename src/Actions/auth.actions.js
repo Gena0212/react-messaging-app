@@ -1,8 +1,11 @@
 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth"
 import { auth, db } from "../firebase.js"
-import { addDoc, collection } from "firebase/firestore"
+import { doc, setDoc, updateDoc} from "firebase/firestore"
 import { authConstants } from "./Constants.js"
+
+//import { updateDoc  } from "firebase/firestore"
+
 
 
 export const signup = (user) => {
@@ -15,13 +18,13 @@ export const signup = (user) => {
             console.log(data)
             console.log(user.name, data.user.uid)
 
-            const docRef = await addDoc(collection(db, "users"), {
+            await setDoc(doc(db, "users", data.user.uid), {
                 name: user.username,
-                uid: data.user.uid, 
-                createdAt: new Date()
+                uid: data.user.uid,  
+                createdAt: new Date(),
+                isOnline:true
             });
 
-            console.log("Document written with ID: ", docRef.id);
 
             const loggedInUser = { 
                 name: user.username,
@@ -59,8 +62,12 @@ export const signin = (user) => {
     return async dispatch => {
         dispatch({ type: authConstants.USER_LOGIN_REQUEST });
         signInWithEmailAndPassword(auth, user.email, user.password)
-        .then((data)=>{
+        .then(async (data)=>{
             console.log(data);
+            
+            await updateDoc(doc(db, "users", data.user.uid), {
+                isOnline: true
+            });
 
             // const name = data.user.displayName.split("")
             // const firstName = name[0]
@@ -108,9 +115,18 @@ export const isLoggedInUser = () => {
     }
 }
 
-export const logout = () => {
+export const logout = (prop) => {
+    console.log('prop of logout function is', prop)
     return async dispatch => {
         dispatch({ type: authConstants.USER_LOGOUT_REQUEST });
+        
+
+        //await setDoc(doc(db, "users", prop.uid), {...prop, isOnline: false});
+
+        await updateDoc(doc(db, "users", prop.uid), {
+         isOnline: false
+        });
+
         signOut(auth).then(() => {
             localStorage.clear();
             dispatch({
