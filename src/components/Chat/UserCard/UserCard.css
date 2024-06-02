@@ -1,0 +1,19 @@
+.online-status-on {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background-color: greenyellow;
+}
+
+.online-status-off {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background-color:darkgray;
+}
+
+.user-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

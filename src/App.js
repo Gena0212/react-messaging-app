@@ -1,5 +1,5 @@
 
-import './App.css'
+// import './App.css'
 import { useEffect} from 'react'
 import Chat from "./components/Chat/Chat.js"
 import { Route, HashRouter as Router } from "react-router-dom"

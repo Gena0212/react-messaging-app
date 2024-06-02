@@ -7,4 +7,5 @@
 .message-area {
     background-color:aliceblue;
     height: 80vh;
+    overflow: scroll;
 }

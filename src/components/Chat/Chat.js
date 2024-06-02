@@ -6,7 +6,7 @@ import CurrentChat from "./CurrentChat/CurrentChat.js";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from "react"
 import UserCard from './UserCard/UserCard.js';
-import { getRealtimeUsers } from '../../Actions/user.actions.js';
+import { getRealtimeConvos, getRealtimeUsers } from '../../Actions/user.actions.js';
 
 
 export default function Chat() {
@@ -16,6 +16,7 @@ export default function Chat() {
 
     const [chatStarted, setChatStarted] = useState(false)
     const [messageReceiver, setMessageReceiver] = useState('')
+    const [userUID, setUserUID] = useState('')
 
     console.log('auth in chat.js', auth)
 
@@ -32,6 +33,7 @@ export default function Chat() {
         .catch(error => {
             console.log(error);
         })
+
     }, [])
 
     useEffect(() => {
@@ -44,7 +46,10 @@ export default function Chat() {
         setChatStarted(true)
         console.log('message started', user)
         setMessageReceiver(user.name)
+        setUserUID(user.uid)
 
+        dispatch(getRealtimeConvos({user1_uid: auth.uid, user2_uid: user.uid}))
+ 
     }
 
     return (
@@ -69,7 +74,7 @@ export default function Chat() {
                     }
                 </div>
                 <div className='messages'>
-                    <CurrentChat {...{chatStarted, messageReceiver}}/>
+                    <CurrentChat {...{user, auth, userUID, chatStarted, messageReceiver}}/>
                 </div>
             </div>
         </div>
