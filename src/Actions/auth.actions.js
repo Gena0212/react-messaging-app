@@ -4,13 +4,10 @@ import { auth, db } from "../firebase.js"
 import { doc, setDoc, updateDoc} from "firebase/firestore"
 import { authConstants } from "./Constants.js"
 
-//import { updateDoc  } from "firebase/firestore"
-
-
 
 export const signup = (user) => {
-    console.log('user is', user)
     return async (dispatch) => {
+        console.log('auth.action.js user', user)
         dispatch({type: authConstants.USER_LOGIN_REQUEST});
         try {
             const data = await createUserWithEmailAndPassword(auth, user.email, user.password)
@@ -19,7 +16,8 @@ export const signup = (user) => {
             console.log(user.name, data.user.uid)
 
             await setDoc(doc(db, "users", data.user.uid), {
-                name: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName,
                 uid: data.user.uid,  
                 createdAt: new Date(),
                 isOnline:true
@@ -27,7 +25,8 @@ export const signup = (user) => {
 
 
             const loggedInUser = { 
-                name: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName,
                 email: user.email, 
                 uid: data.user.uid
             }
@@ -52,12 +51,9 @@ export const signup = (user) => {
 }
 
 export const signin = (user) => {
-    
-    // const email = user.email
-    // const password = user.password
+
 
     console.log(user, 'object from auth.action.js')
-    //console.log(email, password, 'from auth.action.js')
 
     return async dispatch => {
         dispatch({ type: authConstants.USER_LOGIN_REQUEST });
@@ -69,12 +65,9 @@ export const signin = (user) => {
                 isOnline: true
             });
 
-            // const name = data.user.displayName.split("")
-            // const firstName = name[0]
-            // const lastName = name[1]
-
             const loggedInUser = { 
-                name: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName,
                 email: data.user.email, 
                 uid: data.user.uid
             }
@@ -120,9 +113,6 @@ export const logout = (prop) => {
     return async dispatch => {
         dispatch({ type: authConstants.USER_LOGOUT_REQUEST });
         
-
-        //await setDoc(doc(db, "users", prop.uid), {...prop, isOnline: false});
-
         await updateDoc(doc(db, "users", prop.uid), {
          isOnline: false
         });

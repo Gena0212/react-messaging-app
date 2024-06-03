@@ -2,13 +2,7 @@ import React from "react";
 import './Login.css';
 import { useDispatch, useSelector } from "react-redux";
 import { signin } from "../../Actions/auth.actions.js";
-//import { auth } from "../../firebase.js";
 import { Redirect } from 'react-router-dom';
-
-
-
-
-
 
 export default function Login() {
     const [loginData, setLoginData] = React.useState(
@@ -22,11 +16,6 @@ export default function Login() {
 
     const auth = useSelector(state => state.auth);
 
-    // useEffect(()=>{
-    //     if (!auth.authenticated){
-    //         dispatch(isLoggedInUser())
-    //     }
-    // }, []);
 
     function handleChange(event){
         const {name, value} = event.target

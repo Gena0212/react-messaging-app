@@ -10,7 +10,8 @@ export default function Register() {
 
     const [registerData, setRegisterData] = React.useState(
         {
-            username: "",
+            firstName: "",
+            lastName: "",
             email: "", 
             password: "",
             passwordConfirm: ""
@@ -32,19 +33,16 @@ export default function Register() {
         
         e.preventDefault();
         
-        const username = registerData.username
+        const firstName = registerData.firstName
+        const lastName = registerData.lastName
         const email = registerData.email
         const password = registerData.password
         const passwordConfirm = registerData.passwordConfirm
 
         const user = {
-            username, email, password
+            firstName, lastName, email, password
         }
 
-        
-        // const formData = new FormData(e.target);
-
-        // const { username, email, password, passwordConfirm } = Object.fromEntries(formData);
         
         if (password === passwordConfirm) {
             if (email === '' || password === ''){
@@ -71,10 +69,17 @@ export default function Register() {
                 <form onSubmit={handleRegister}>
                     <input
                     type="text"
-                    placeholder="Username"
+                    placeholder="First Name"
                     onChange={handleRegisterChange}
-                    name = "username"
-                    value = {registerData.username}
+                    name = "firstName"
+                    value = {registerData.firstName}
+                    />
+                    <input
+                    type="text"
+                    placeholder="Last Name"
+                    onChange={handleRegisterChange}
+                    name = "lastName"
+                    value = {registerData.lastName}
                     />
                     <input
                     type="email"

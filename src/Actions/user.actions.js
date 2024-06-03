@@ -9,15 +9,6 @@ export const getRealtimeUsers = (uid) => {
     return async (dispatch) => {
         dispatch({type: userConstants.GET_REALTIME_USERS_REQUEST})
 
-        // collection(db, 'users')
-        // .onSnapshot((querySnapshot)=>{
-        //     const users = [];
-        //     querySnapshot.forEach(function(doc) {
-        //         users.push(doc.data());
-        //     });
-        //     console.log('users from user.action.js', users);
-        // });
-
         const q = query(collection(db, "users"));
         // eslint-disable-next-line
         const unsubscribe = onSnapshot(q, (querySnapshot) => {

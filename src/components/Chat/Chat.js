@@ -18,11 +18,6 @@ export default function Chat() {
     const [messageReceiver, setMessageReceiver] = useState('')
     const [userUID, setUserUID] = useState('')
 
-    console.log('auth in chat.js', auth)
-
-    // const logout = () => {
-    //     dispatch(logout())
-    // }
     let unsubscribe;
 
     useEffect(() => {
@@ -51,10 +46,14 @@ export default function Chat() {
         dispatch(getRealtimeConvos({user1_uid: auth.uid, user2_uid: user.uid}))
  
     }
+    console.log('chat.js', auth)
 
     return (
         <div className="chat">
             <header>
+                <div>
+                    {/* {auth.authenticated ? 'Hi ${auth.firstName} ${auth.lastName}': ''} */}
+                </div>
                 <Link to = {'#'} onClick = {() => {
                     dispatch(logout(auth))
                 }}>Logout</Link>
