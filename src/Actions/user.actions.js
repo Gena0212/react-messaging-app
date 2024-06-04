@@ -19,7 +19,7 @@ export const getRealtimeUsers = (uid) => {
                 }
                 
             });
-            console.log('users from user.action.js', users);
+            // console.log('users from user.action.js', users);
 
             dispatch({ 
                 type: userConstants.GET_REALTIME_USERS_SUCCESS,
@@ -38,8 +38,7 @@ export const updateMessage = (messageInfo) => {
             ...messageInfo, 
             createdAt: new Date()
           });
-          console.log("Document written with ID: ", docRef);
-
+        console.log("Document written with ID: ", docRef);
     }
 }
 
@@ -57,7 +56,7 @@ export const getRealtimeConvos = (info) => {
                 || 
                 (doc.data().user1_uid == info.user2_uid && doc.data().user2_uid == info.user1_uid)
             ){
-                console.log('success')
+                // console.log('success')
                 convos.push(doc.data());
             }
             if(convos.length > 0){
@@ -72,7 +71,7 @@ export const getRealtimeConvos = (info) => {
                 })
             }
         });
-        console.log(convos);
+        // console.log(convos);
         });
     }
 }

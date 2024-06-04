@@ -7,13 +7,12 @@ import { authConstants } from "./Constants.js"
 
 export const signup = (user) => {
     return async (dispatch) => {
-        console.log('auth.action.js user', user)
+        // console.log('auth.action.js user', user)
         dispatch({type: authConstants.USER_LOGIN_REQUEST});
         try {
             const data = await createUserWithEmailAndPassword(auth, user.email, user.password)
 
-            console.log(data)
-            console.log(user.name, data.user.uid)
+            // console.log(user.firstName, user.lastName, data.user.uid)
 
             await setDoc(doc(db, "users", data.user.uid), {
                 firstName: user.firstName,
@@ -33,7 +32,7 @@ export const signup = (user) => {
 
             localStorage.setItem('user', JSON.stringify(loggedInUser))
 
-            console.log('User logged in success')
+            // console.log('User logged in success')
 
             dispatch({
                 type: authConstants.USER_LOGIN_SUCCESS, 
@@ -41,7 +40,7 @@ export const signup = (user) => {
             })
 
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             dispatch({ type: authConstants.USER_LOGIN_FAILURE, 
             payload: {error}
             });
@@ -53,13 +52,13 @@ export const signup = (user) => {
 export const signin = (user) => {
 
 
-    console.log(user, 'object from auth.action.js')
+    // console.log(user, 'object from auth.action.js')
 
     return async dispatch => {
         dispatch({ type: authConstants.USER_LOGIN_REQUEST });
         signInWithEmailAndPassword(auth, user.email, user.password)
         .then(async (data)=>{
-            console.log(data);
+            // console.log(data);
             
             await updateDoc(doc(db, "users", data.user.uid), {
                 isOnline: true
@@ -80,7 +79,7 @@ export const signin = (user) => {
             });
         })
         .catch(error => {
-            console.log(error);
+            // console.log(error);
             dispatch({
                 type: authConstants.USER_LOGIN_FAILURE, 
                 payload: { error }
@@ -109,7 +108,7 @@ export const isLoggedInUser = () => {
 }
 
 export const logout = (prop) => {
-    console.log('prop of logout function is', prop)
+    // console.log('prop of logout function is', prop)
     return async dispatch => {
         dispatch({ type: authConstants.USER_LOGOUT_REQUEST });
         
@@ -124,7 +123,7 @@ export const logout = (prop) => {
             });
         })
         .catch((error) => {
-            console.log(error)
+            // console.log(error)
             dispatch({ 
                 type: authConstants.USER_LOGOUT_FAILURE, 
                 payload: { error }

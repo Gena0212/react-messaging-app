@@ -43,7 +43,7 @@ export default function Login() {
         }
 
         dispatch(signin({email , password}));
-        console.log("User is signed in?")
+        // console.log("User is signed in?")
 
     }
     // console.log('Auth is', auth)

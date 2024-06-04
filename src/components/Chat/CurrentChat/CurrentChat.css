@@ -2,10 +2,90 @@
     display: flex;
     flex-direction: column;
     /* display: 2; */
+    color: black;
 }
 
 .message-area {
     background-color:aliceblue;
     height: 80vh;
     overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1%;
+}
+
+.message-own{
+    color: black;
+    background-color: chartreuse;
+    align-self: flex-end;
+    /* max-width: 70%; */
+    /* display: flex; */
+    /* gap: 20px; */
+    /* justify-content: flex-start; */
+    /* overflow: auto; */
+    height: fit-content;
+
+    margin: 1%;
+    /* text-align: right; */
+    width: fit-content;
+    max-width: 15vw;
+    border-radius: 10px;
+    padding: 1% 2.5%;
+    float: right;
+    /* position: absolute; */
+    /* display:flex;
+    align-self: flex-end; */
+
+}
+
+.message-theirs{
+    color: black;
+    background-color: aqua;
+    /* max-width: 70%; */
+    /* display: flex; */
+    /* gap: 20px; */
+    /* overflow: auto; */
+    height: fit-content;
+    margin: 1%;
+    /* text-align: left; */
+    width: fit-content;
+    max-width: 15vw;
+    border-radius: 10px;
+    padding: 1% 2.5%;
+    /* height: fit-content;
+    max-width: 35vw; */
+    float: left;
+    /* position: absolute; */
+    /* display: flex; */
+}
+
+.send-message-button {
+    background-color:#FFBB03;
+    color: aliceblue;
+    padding: 1.5% 3.5%;
+    border-radius: 5px;
+    font-size: larger;
+    border-color: #E5A803;
+    /* font-family: 'Courier New', Courier, monospace; */
+    box-shadow: none;
+    font-weight: bolder;
+}
+
+.typing-message {
+    width: 30vw;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+}
+
+.chat-header {
+    background-color: #40C6FF;
+    color: aliceblue;
+    padding: 2%;
+    text-align: center;
+    vertical-align: middle;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bolder;
+    font-size: 150%;
+    border-radius: 5px;
 }

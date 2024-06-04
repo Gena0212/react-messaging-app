@@ -7,7 +7,6 @@ export default function UserCard(props) {
             {
                 props.isOnline ? <div className= 'online-status-on'>    </div> : <div className=  'online-status-off'>   </div>
             }
-            {/* <span>{props.isOnline? 'online' : 'offline'}</span> */}
         </div>
 
     )

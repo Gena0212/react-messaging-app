@@ -46,7 +46,7 @@ export default function Register() {
         
         if (password === passwordConfirm) {
             if (email === '' || password === ''){
-                console.log("Email and password are mandatory")
+                // console.log("Email and password are mandatory")
                 return
             } else {
 
@@ -54,7 +54,7 @@ export default function Register() {
             }
 
         } else {
-            console.log("Passwords do not match")
+            // console.log("Passwords do not match")
             return
         }
     }

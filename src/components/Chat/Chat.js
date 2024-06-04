@@ -15,7 +15,10 @@ export default function Chat() {
     const user = useSelector(state => state.user);
 
     const [chatStarted, setChatStarted] = useState(false)
-    const [messageReceiver, setMessageReceiver] = useState('')
+    const [messageReceiver, setMessageReceiver] = useState({
+        firstName: '',
+        lastName: ''
+    })
     const [userUID, setUserUID] = useState('')
 
     let unsubscribe;
@@ -39,20 +42,25 @@ export default function Chat() {
 
     function startMessaging(user) {
         setChatStarted(true)
-        console.log('message started', user)
-        setMessageReceiver(user.name)
+        // console.log('message started', user)
+        
+        setMessageReceiver({
+            firstName: user.firstName, 
+            lastName: user.lastName
+        })
         setUserUID(user.uid)
 
         dispatch(getRealtimeConvos({user1_uid: auth.uid, user2_uid: user.uid}))
  
     }
-    console.log('chat.js', auth)
+    // console.log('chat.js', auth)
+    // console.log(user)
 
     return (
         <div className="chat">
             <header>
                 <div>
-                    {/* {auth.authenticated ? 'Hi ${auth.firstName} ${auth.lastName}': ''} */}
+                    {auth.authenticated ? `Hi ${auth.firstName} ${auth.lastName}`: ''}
                 </div>
                 <Link to = {'#'} onClick = {() => {
                     dispatch(logout(auth))
