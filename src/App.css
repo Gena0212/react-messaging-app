@@ -1,9 +1,10 @@
-/* #root {
-  max-width: 1280px;
+#root {
+  width: 100vw;
+  /* max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
-} */
+  text-align: center; */
+}
 
 /* .app {
   height: 100 vh;

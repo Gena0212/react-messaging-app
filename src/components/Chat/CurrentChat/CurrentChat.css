@@ -36,6 +36,7 @@
     /* position: absolute; */
     /* display:flex;
     align-self: flex-end; */
+    overflow-wrap: break-word;
 
 }
 
@@ -58,6 +59,7 @@
     float: left;
     /* position: absolute; */
     /* display: flex; */
+    overflow-wrap: break-word;
 }
 
 .send-message-button {
@@ -73,12 +75,12 @@
 }
 
 .typing-message {
-    width: 30vw;
+    width: 45vw;
     font-family: Arial, Helvetica, sans-serif;
     font-size: large;
 }
 
-.chat-header {
+.user-name {
     background-color: #40C6FF;
     color: aliceblue;
     padding: 2%;
@@ -88,4 +90,9 @@
     font-weight: bolder;
     font-size: 150%;
     border-radius: 5px;
+}
+
+.message-sending-section {
+    display: flex;
+    justify-content: space-around;
 }

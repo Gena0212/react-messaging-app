@@ -1,6 +1,6 @@
 import { updateMessage } from "../../../Actions/user.actions.js";
 import "./CurrentChat.css"
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { useDispatch} from 'react-redux';
 
 
@@ -35,10 +35,19 @@ export default function CurrentChat(props) {
     // console.log('currentchat.js', props.user.convos)
     // console.log(props.chatStarted)
 
+  
+    const AlwaysScrollToBottom = () => {
+        const elementRef = useRef();
+        useEffect(() => elementRef.current.scrollIntoView());
+        return <div ref={elementRef} />;
+      };
+    
+
+
     return (
-        <div className = 'current-chat'>
+        <div className = 'current-chat' >
             {(props.chatStarted) ?
-                (<div className="chat-header">            
+                (<div className="user-name" >            
                     {
                     props.chatStarted ? `${props.messageReceiver.firstName} ${props.messageReceiver.lastName}` : ''
                     }
@@ -64,37 +73,13 @@ export default function CurrentChat(props) {
                             </div>) : null
                         )
                         : null
-                    // props.chatStarted ? 
-                    // props.user.convos.map(convo => {
-
-                        // if (props.userUID === convo.user1_uid && props.auth.uid === convo.user2_uid) {
-                        //     confirmUserMsgs = true
-                        //     console.log('current.chat.js', confirmUserMsgs)
-                        // } else if (props.userUID === convo.user2_uid && props.auth.uid === convo.user1_uid){
-                        //     confirmUserMsgs = true
-                        //     console.log('current.chat.js', confirmUserMsgs)
-                        // }
-
-
-
-                        // if (props.chatStarted && confirmUserMsgs){
-                            // console.log('in for loop currentchat.js', convo.message);
-                            // <div className= 'message'
-                            // key = {convo.id}
-                            // style = {{textAlign: convo.user1_uid == props.auth.uid ? 'right': 'left'}}>
-                            //         <p > {convo.message} </p>
-                            // </div> 
-                        // }
-
-
-                        // confirmUserMsgs = false
-                    // }
-                    // )  
                 }
+                <AlwaysScrollToBottom />
+
             </div>
 
             { props.chatStarted ? 
-                 <div>
+                 <div className="message-sending-section">
                     <textarea className="typing-message"
                         value =  {message}
                         onChange = {(event) => setMessage(event.target.value)} 

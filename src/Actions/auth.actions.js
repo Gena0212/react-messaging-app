@@ -91,6 +91,7 @@ export const signin = (user) => {
 
 export const isLoggedInUser = () => {
     return async dispatch => {
+        console.log(localStorage)
         const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')): null;
 
         if (user){

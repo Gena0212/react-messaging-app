@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from "react"
 import UserCard from './UserCard/UserCard.js';
 import { getRealtimeConvos, getRealtimeUsers } from '../../Actions/user.actions.js';
+import { currentlySignedInUser } from '../../firebase.js';
 
 
 export default function Chat() {
@@ -53,14 +54,17 @@ export default function Chat() {
         dispatch(getRealtimeConvos({user1_uid: auth.uid, user2_uid: user.uid}))
  
     }
-    // console.log('chat.js', auth)
+    console.log('chat.js', auth)
     // console.log(user)
-
+    console.log(currentlySignedInUser)
     return (
         <div className="chat">
-            <header>
+            <header className='chat-header'>
                 <div>
-                    {auth.authenticated ? `Hi ${auth.firstName} ${auth.lastName}`: ''}
+                    {/* {auth.authenticated ? `Hi ${auth.firstName} ${auth.lastName}`: ''} */}
+                    {/* {auth.authenticated ? `Hi ${currentlySignedInUser.firstName} ${auth.lastName}`: ''} */}
+
+                    
                 </div>
                 <Link to = {'#'} onClick = {() => {
                     dispatch(logout(auth))
