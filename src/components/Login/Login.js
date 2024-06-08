@@ -3,6 +3,8 @@ import './Login.css';
 import { useDispatch, useSelector } from "react-redux";
 import { signin } from "../../Actions/auth.actions.js";
 import { Redirect } from 'react-router-dom';
+import {Link} from "react-router-dom";
+
 
 export default function Login() {
     const [loginData, setLoginData] = React.useState(
@@ -57,7 +59,7 @@ export default function Login() {
 
     return (
         <div className="login">
-            <h2>Log In</h2>
+            <h1>Log In</h1>
             <form onSubmit={handleLogin}>
                 <input
                 type="email"
@@ -73,8 +75,9 @@ export default function Login() {
                 name="password"
                 value = {loginData.password}
                 />
-                <button >Sign In</button>
+                <button className="login-button" >Sign In</button>
             </form>
+            <Link to="/register"> Register </Link>
         </div>
     )
 }

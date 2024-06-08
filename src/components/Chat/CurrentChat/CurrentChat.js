@@ -33,16 +33,23 @@ export default function CurrentChat(props) {
         // console.log(messageInfo)
     }
     // console.log('currentchat.js', props.user.convos)
-    // console.log(props.chatStarted)
+    console.log(props.chatStarted)
 
+    const messageRef = useRef(null);
+
+    useEffect(() => {
+      messageRef.current?.scrollIntoView({ 
+        behavior: "smooth" 
+        // block: "nearest",
+        // inline: "start" 
+    });
+    });
   
-    const AlwaysScrollToBottom = () => {
-        const elementRef = useRef();
-        useEffect(() => elementRef.current.scrollIntoView());
-        return <div ref={elementRef} />;
-      };
-    
-
+    // const AlwaysScrollToBottom = () => {
+    //     const elementRef = useRef();
+    //     useEffect(() => elementRef.current.scrollIntoView());
+    //     return <div ref={elementRef} />;
+    //   };
 
     return (
         <div className = 'current-chat' >
@@ -62,7 +69,6 @@ export default function CurrentChat(props) {
                         (props.userUID === convo.user2_uid && props.auth.uid === convo.user1_uid)) ? 
 
                             (<div key = {convo.id}
-                                // style = {{textAlign: convo.user1_uid == props.auth.uid ? 'right': 'left'}} 
                                 className= {
                                     convo.user1_uid == props.auth.uid ? 
                                     'message-own': 'message-theirs'
@@ -74,8 +80,8 @@ export default function CurrentChat(props) {
                         )
                         : null
                 }
-                <AlwaysScrollToBottom />
-
+                {/* <AlwaysScrollToBottom /> */}
+                <div ref={messageRef}></div>
             </div>
 
             { props.chatStarted ? 

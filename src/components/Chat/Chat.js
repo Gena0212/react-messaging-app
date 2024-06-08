@@ -54,7 +54,7 @@ export default function Chat() {
         dispatch(getRealtimeConvos({user1_uid: auth.uid, user2_uid: user.uid}))
  
     }
-    console.log('chat.js', auth)
+    // console.log('chat.js', auth)
     // console.log(user)
     console.log(currentlySignedInUser)
     return (

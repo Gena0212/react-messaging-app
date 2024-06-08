@@ -4,6 +4,8 @@ import './Register.css';
 import { signup } from '../../Actions/Actions.js';
 import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
+import {Link} from "react-router-dom";
+
 
 
 export default function Register() {
@@ -54,7 +56,7 @@ export default function Register() {
             }
 
         } else {
-            // console.log("Passwords do not match")
+            console.log("Passwords do not match")
             return
         }
     }
@@ -65,7 +67,7 @@ export default function Register() {
 
     return (
         <div className="register">
-                <h2>Register</h2>
+                <h1>Register</h1>
                 <form onSubmit={handleRegister}>
                     <input
                     type="text"
@@ -102,8 +104,10 @@ export default function Register() {
                     name="passwordConfirm"
                     value = {registerData.passwordConfirm}
                     />
-                    <button>Sign Up</button>
+                    <button className="register-button">Sign Up</button>
                 </form>
+                <Link to="/login"> Login </Link>
+
         </div>
         
     )
